@@ -3,14 +3,11 @@
 import * as React from "react";
 import Link from "next/link";
 
-import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { ChangeThemeButton } from "./change-theme-button";
@@ -36,15 +33,19 @@ const navigationLinks = [
 
 export function Navbar() {
   return (
-    <NavigationMenu className="ml-auto p-3">
+    <NavigationMenu className="px-10 py-6 fixed top-0 left-0 right-0 bg-white dark:bg-black flex justify-between">
+      <Link href="/" className="font-bold tracking-widest text-primary">
+        PawelJadach.
+      </Link>
       <NavigationMenuList>
         {navigationLinks.map((link) => (
           <NavigationMenuItem key={link.href}>
-            <Link href={link.href} passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                {link.label}
-              </NavigationMenuLink>
-            </Link>
+            <NavigationMenuLink
+              className={navigationMenuTriggerStyle()}
+              asChild
+            >
+              <Link href={link.href}>{link.label}</Link>
+            </NavigationMenuLink>
           </NavigationMenuItem>
         ))}
       </NavigationMenuList>
@@ -54,29 +55,3 @@ export function Navbar() {
     </NavigationMenu>
   );
 }
-
-const ListItem = React.forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
-  return (
-    <li>
-      <NavigationMenuLink asChild>
-        <a
-          ref={ref}
-          className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
-          )}
-          {...props}
-        >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-            {children}
-          </p>
-        </a>
-      </NavigationMenuLink>
-    </li>
-  );
-});
-ListItem.displayName = "ListItem";

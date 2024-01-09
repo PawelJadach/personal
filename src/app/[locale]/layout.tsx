@@ -21,10 +21,10 @@ export default function LocaleLayout({
 
   return (
     <html lang={locale}>
-      <body className="p-4">
+      <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navbar />
-          <div className="max-w-screen-lg	mx-auto mt-5">{children}</div>
+          <div className="max-w-screen-lg	mx-auto px-10">{children}</div>
         </ThemeProvider>
       </body>
     </html>
